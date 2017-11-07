@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+
+[packages]
+
+"dj-database-url" = "*"
+django = "*"
+gunicorn = "*"
+"psycopg2" = "*"
+whitenoise = "*"
+"django-celery" = "*"
+"honcho" = "*"
+"requests" = "*"
+"beautifulsoup4" = "*"
+"PyPDF2" = "*"
+"Wand" = "*"
+
+[requires]
+python_version = "3.6"
