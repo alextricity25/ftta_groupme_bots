@@ -26,9 +26,9 @@ def pick_a_song(request):
     logger = logging.getLogger(__name__)
     if request.method == 'POST':
         # MemoryVerseBot bot_id
-        ACCESS_TOKEN = '657cd373c1ae079d911c3f663b'
+        ACCESS_TOKEN = 'INSERTTOKEN'
         # SingSongsToHim bot_id
-        #ACCESS_TOKEN = 'df27f963c671673a46b4b2b642'
+        #ACCESS_TOKEN = 'INSERTOKEN'
         # URL of bot post
         url = "https://api.groupme.com/v3/bots/post"
         # Headers for the bot to post
