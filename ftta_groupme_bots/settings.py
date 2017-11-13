@@ -44,7 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ftta_groupme_bots',
+    'data',
     'djcelery',
     'kombu.transport.django'
 )
