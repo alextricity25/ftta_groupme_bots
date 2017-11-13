@@ -47,7 +47,7 @@ def pick_a_song(request):
             from wand.image import Image
             import PyPDF2
             # Getting random page from the UK songbook...
-            pdf_file_obj = open('/app/hello/uk_songbook.pdf', 'rb')
+            pdf_file_obj = open('/app/data/uk_songbook.pdf', 'rb')
             pdf_reader = PyPDF2.PdfFileReader(pdf_file_obj, strict=False)
             pdf_writer = PyPDF2.PdfFileWriter()
             number_of_pages = pdf_reader.numPages
