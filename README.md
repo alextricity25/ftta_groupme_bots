@@ -13,3 +13,12 @@ TODO:
 3) Add search funtionality when choosing a song from the YP songbook. That way someone could reference a song using '#sendsong pattern' hashtag. The bot would then send the song with chords that has lyrics that match that pattern.
 
 4) Update this read me with instructions on how to deploy this bot
+
+
+# Instructions on how to deploy the app on heroku:
+
+* Add the Heroku apt experimental buildpack:
+```
+heroku buildpacks:add https://github.com/heroku/heroku-buildpack-apt
+```
+This is needed to install some essential packages on the Heroku dyno.
