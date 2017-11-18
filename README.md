@@ -84,7 +84,7 @@ After the bot has been created, take note of the "Bot ID".
 3. Configure the Bot ID and access token environment variable on your Heroku dyno.
 ```
 $ heroku config:set GROUPME_ACCESS_TOKEN=your-groupme-access-token
-TODO - need to change this to env var.  $ heroku config:set BOT_ID=your-bot-id
+$ heroku config:set BOT_ID=your-bot-id
 ```
 
 4. Restart the application:

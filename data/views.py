@@ -27,19 +27,20 @@ def pick_a_song(request):
     if request.method == 'POST':
         # MemoryVerseBot bot_id
         ACCESS_TOKEN = 'INSERTTOKEN'
+        BOT_ID = os.environ['GROUPME_BOT_ID']
         # SingSongsToHim bot_id
         #ACCESS_TOKEN = 'INSERTOKEN'
         # URL of bot post
         url = "https://api.groupme.com/v3/bots/post"
         # Headers for the bot to post
-        headers = {'X-Access-Token': ACCESS_TOKEN}
+        headers = {'X-Access-Token': BOT_ID}
         # Get the text from the message
         r_dict = json.loads(request.body)
 
         if 'hello' in r_dict['text'].lower():
             data = {
                 'text': 'HI THERE',
-                'bot_id': ACCESS_TOKEN
+                'bot_id': BOT_ID
             }
             r = requests.post(url, json=data)
 
@@ -67,10 +68,10 @@ def pick_a_song(request):
                 img.save(filename="{}.png".format(filename))
 
             # Send to GroupMe Image Service
-            ALEX_ACCESS_TOKEN = os.environ['GROUPME_ACCESS_TOKEN']
+            ACCESS_TOKEN = os.environ['GROUPME_ACCESS_TOKEN']
             image_api_url = 'https://image.groupme.com/pictures'
             image_api_headers = {
-                'X-Access-Token': ALEX_ACCESS_TOKEN,
+                'X-Access-Token': ACCESS_TOKEN,
                 'Content-Type': "image/png"
             }
             r = requests.post(image_api_url, data=open("{}.png".format(filename), 'rb').read(), headers=image_api_headers)
@@ -80,7 +81,7 @@ def pick_a_song(request):
 
             # Post the image to the group
             data = {
-                'bot_id': ACCESS_TOKEN,
+                'bot_id': BOT_ID,
                 'attachments': [
                     {
                         "type": "image",
