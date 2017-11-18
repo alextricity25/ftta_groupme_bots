@@ -17,8 +17,77 @@ TODO:
 
 # Instructions on how to deploy the app on heroku:
 
-* Add the Heroku apt experimental buildpack:
+1. Clone this repository
+```
+git clone https://github.com/alextricity25/ftta_groupme_bots.git
+```
+
+2. Follow the instructions provided by heroku on how to authenticate
+   and set up a new project:
+   https://devcenter.heroku.com/articles/getting-started-with-python#introduction
+
+Take note that you can skip the step asking you to clone the getting started project.
+This is because we don't want to start a new project, but rather deploy an existing one.
+
+3. Add the Heroku apt experimental buildpack:
 ```
 heroku buildpacks:add https://github.com/heroku/heroku-buildpack-apt
 ```
 This is needed to install some essential packages on the Heroku dyno.
+
+
+4. Push the repository to your heroku app repository.
+After taking care of the prerequisites listed on Heroku's getting started guide, you can now
+create a heroku project and push the application up to heroku for deployment:
+```
+$ heroku create
+$ git push heroku master
+```
+
+You can run the command `heroku logs -t` to view the logs related to the app
+deployment. You can also ensure that at least one instance of the app is
+running with the command:
+```
+$ herkou ps:scale web=1
+```
+
+# Set up a GroupMe Bot:
+
+Now that heroku django app is running, it's time to setup a GroupMe bot
+with a callback URL to the app.
+
+1. Ensure you have a GroupMe account. Login to the GroupMe Developer Portal:
+   https://dev.groupme.com/
+
+2. Go to the "Bots" tab, then choose "Create Bot"
+
+  * Choose the group this bot will operate in.
+  * Name the Bot
+  * For the callback URL, you are going to use the heroku URL for the
+    application that we deployed earlier. To get the URL, navigate
+    to the project's directory tree, then run:
+    ```
+    heroku apps:info
+    ```
+    Append the URL with the path '/pick_a_song'. This is the URL that handles
+    requests to choose a random song from the UK YP songbook.
+
+After the bot has been created, take note of the "Bot ID".
+
+3. Get your access token.
+   To send a song, the FTTA bot utilizes the groupme image service. Before the bot can
+   use the image service, it must have an access token configured. To obtain an access
+   token, follow the provided instructions from groupme:
+   https://dev.groupme.com/tutorials/oauth
+
+
+3. Configure the Bot ID and access token environment variable on your Heroku dyno.
+```
+$ heroku config:set GROUPME_ACCESS_TOKEN=your-groupme-access-token
+TODO - need to change this to env var.  $ heroku config:set BOT_ID=your-bot-id
+```
+
+4. Restart the application:
+```
+heroku ps:restart web.1
+```
