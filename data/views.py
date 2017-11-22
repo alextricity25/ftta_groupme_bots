@@ -98,7 +98,10 @@ def pick_a_song(request):
 
             # Convert pdf document to PNG
             with Image(filename=filename, resolution=200) as img:
-                img.negate(grayscale=True)
+                # Negate the image if it's from the UK YP songbook.
+                # This is to help with visuals
+                if '#sendsong' in r_dict['text']:
+                    img.negate(grayscale=True)
                 img.save(filename="{}.png".format(filename))
 
             # Send to GroupMe Image Service
