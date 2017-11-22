@@ -91,7 +91,7 @@ def pick_a_song(request):
             pdf_writer.addPage(page_obj)
 
             # Save random page as seperate file
-            filename = "/tmp/songbook_{}".format(random_page)
+            filename = "/tmp/songbook_{}".format(page_number)
             pdf_output = open(filename, 'wb')
             pdf_writer.write(pdf_output)
             pdf_output.close()
