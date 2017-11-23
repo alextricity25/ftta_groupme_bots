@@ -224,10 +224,10 @@ def fetch_verse():
         book_number = random.randint(1, len(BIBLE.keys()))
         book_name = list(BIBLE.keys())[book_number]
         chapter_number = random.randint(1, int(BIBLE[book_name]['chapters']))
-        
-        #print("http://online.recoveryversion.bible/txo/{}_{}{}.htm".format(book_number + 1, book_name.replace(" ", ""), chapter_number))
-        url = "http://online.recoveryversion.bible/txo/{}_{}{}.htm".format(book_number + 1, book_name.replace(" ", ""), chapter_number)
-        
+        url = "http://online.recoveryversion.bible/txo/{}_{}{}.htm".format(
+            book_number + 1,
+            book_name.replace(" ", ""),
+            chapter_number)
         r = requests.get(url)
         status_code = r.status_code
 
@@ -237,9 +237,10 @@ def fetch_verse():
         if status_code != 200:
             retries += 1
             logger.info("ALEX the status code is: {}".format(status_code))
-            logger.info("ALEX - Could not successfully send request this time. Retrying..")
+            logger.info(
+                "ALEX - Could not successfully send"
+                "request this time. Retrying..")
             continue
-    
         chapter_html = r.text
         soup = BeautifulSoup(chapter_html, 'html.parser')
         verses_list_soup = soup.get_text().split('\n')
@@ -248,21 +249,24 @@ def fetch_verse():
         for verse in verses_list_soup:
             if re.search(r'[0-9]+:[0-9]+', verse):
                 verses_list.append(verse)
-        
         random_verse_index = random.randint(1, len(verses_list) - 1)
-        logger.info("ALEX - Sending Verse: {}".format(verses_list[random_verse_index]))
-
+        logger.info(
+            "ALEX - Sending Verse: {}".format(
+                verses_list[random_verse_index]
+             )
+        )
 
     if retries >= 5:
         logger.info("ALEX - Number of retries exceeded. Nothing returned..")
         return " "
 
     return "{} {}".format(book_name, verses_list[random_verse_index])
-    
+
 
 @task()
 def add(x, y):
     return x + y
+
 
 @task()
 def groupme_verse(message="", groupme_id=os.environ["TEST_GROUPID"]):
@@ -284,15 +288,14 @@ def groupme_verse(message="", groupme_id=os.environ["TEST_GROUPID"]):
     r = requests.post(url, json=data, headers=headers)
     if r.status_code != 201:
         data['text'] = "Failed to send verse..."
-        r2 = requests.post(url, json=data, headers=headers)
+        requests.post(url, json=data, headers=headers)
     logger.info("ALEX - sending request to URL: {}".format(url))
     logger.info("ALEX - response is:".format(r.text))
     logger.info("ALEX - status code: {}".format(r.status_code))
+
 
 @task()
 def hit_myself():
     logger = logging.getLogger(__name__)
     logger.info("ALEX - Sending a request to our selves...")
-    r = requests.get('https://thawing-savannah-68245.herokuapp.com/')
-
-
+    requests.get('https://thawing-savannah-68245.herokuapp.com/')

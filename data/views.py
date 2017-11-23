@@ -12,15 +12,18 @@ import os
 import logging
 import json
 
+
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
     return render(request, 'index.html')
 
+
 def ride(request):
 
     some_ride_data = "The time is: {}".format(time.ctime())
     return render(request, 'ride.html', {'time': some_ride_data})
+
 
 def _upload_groupme_image(access_token, filename):
     url = 'https://image.groupme.com/pictures'
@@ -35,6 +38,7 @@ def _upload_groupme_image(access_token, filename):
     )
     return r
 
+
 @csrf_exempt
 def pick_a_song(request):
     logger = logging.getLogger(__name__)
@@ -43,8 +47,6 @@ def pick_a_song(request):
         ACCESS_TOKEN = os.environ['GROUPME_ACCESS_TOKEN']
         # URL of bot post
         url = "https://api.groupme.com/v3/bots/post"
-        # Headers for the bot to post
-        headers = {'X-Access-Token': BOT_ID}
         # Get the text from the message
         r_dict = json.loads(request.body)
 
@@ -56,7 +58,7 @@ def pick_a_song(request):
             r = requests.post(url, json=data)
 
         if ('#sendsong' in r_dict['text'].lower() or
-            '#hymn' in r_dict['text'].lower()):
+           '#hymn' in r_dict['text'].lower()):
             from wand.image import Image
             import PyPDF2
 
@@ -74,18 +76,17 @@ def pick_a_song(request):
                     page_number = 1
             elif '#sendsong' in r_dict['text'].lower():
                 songbook_name = "uk_songbook.pdf"
-            
-
             # Getting random page from the UK songbook...
-            #pdf_file_obj = open('/app/data/uk_songbook.pdf', 'rb')
-            pdf_file_obj = open("/app/data/{}".format(songbook_name), 'rb')
+            pdf_file_obj = open(
+                               "/app/data/{}".format(songbook_name),
+                               'rb')
             pdf_reader = PyPDF2.PdfFileReader(pdf_file_obj, strict=False)
             pdf_writer = PyPDF2.PdfFileWriter()
             number_of_pages = pdf_reader.numPages
-            # If a song from the uk yp songbook is requested, then pick a random
-            # page.
+            # If a song from the uk yp songbook is requested, then pick a
+            # random page.
             if '#sendsong' in r_dict['text'].lower():
-                page_number = random.randint(0, number_of_pages -1)
+                page_number = random.randint(0, number_of_pages - 1)
 
             page_obj = pdf_reader.getPage(page_number)
             pdf_writer.addPage(page_obj)
@@ -117,11 +118,12 @@ def pick_a_song(request):
                     }
                  ]
             }
-            rg = requests.post(url, json=data)
+            requests.post(url, json=data)
             os.remove(filename)
             os.remove("{}.png".format(filename))
 
     return render(request, 'pick_a_song.html', {'request': request})
+
 
 def db(request):
 
@@ -131,4 +133,3 @@ def db(request):
     greetings = Greeting.objects.all()
 
     return render(request, 'db.html', {'greetings': greetings})
-
