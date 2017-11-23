@@ -135,5 +135,5 @@ def db(request):
     return render(request, 'db.html', {'greetings': greetings})
 
 
-def memory_verse(request):
+def memory_verses(request):
     return render(request, 'memory_verses.html')
