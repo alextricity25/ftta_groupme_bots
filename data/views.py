@@ -133,3 +133,7 @@ def db(request):
     greetings = Greeting.objects.all()
 
     return render(request, 'db.html', {'greetings': greetings})
+
+
+def memory_verse(request):
+    return render(request, 'memory_verses.html')
