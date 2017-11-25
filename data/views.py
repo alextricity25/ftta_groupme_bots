@@ -135,7 +135,7 @@ def db(request):
 
     return render(request, 'db.html', {'greetings': greetings})
 
-
+@csrf_exempt
 def memory_verses(request):
     # When this endpoint is hit, the bot will send a random memory verse
     # from the class ECAL by default, and the current term by default.
