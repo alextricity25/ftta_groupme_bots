@@ -140,7 +140,7 @@ def memory_verses(request):
     # When this endpoint is hit, the bot will send a random memory verse
     # from the class ECAL by default, and the current term by default.
     if request.method == 'POST':
-        BOT_ID = os.environ['GROUPME_BOT_ID']
+        BOT_ID = os.environ['MV_BOT_ID']
         ACCESS_TOKEN = os.environ['GROUPME_ACCESS_TOKEN']
         url = 'https://api.groupme.com/v3/bots/post'
         r_dict = json.loads(request.body)
