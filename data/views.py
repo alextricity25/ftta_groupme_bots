@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import Greeting
+from .models import MemoryVerse
 
 import time
 import requests
@@ -136,4 +137,21 @@ def db(request):
 
 
 def memory_verses(request):
+    # When this endpoint is hit, the bot will send a random memory verse
+    # from the class ECAL by default, and the current term by default.
+    if request.method == 'POST':
+        BOT_ID = os.environ['GROUPME_BOT_ID']
+        ACCESS_TOKEN = os.environ['GROUPME_ACCESS_TOKEN']
+        url = 'https://api.groupme.com/v3/bots/post'
+        r_dict = json.loads(request.body)
+
+        if '#memoryverse' in r_dict['text'].lower():
+            randindex = random.randint(0, len(MemoryVerse.objects.all()))
+            data = {
+                'text': MemoryVerse.objects.all()[randindex].verse,
+                'bot_id': BOT_ID
+            }
+            r = requests.post(url, json=data)
+
+        
     return render(request, 'memory_verses.html')
