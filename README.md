@@ -1,6 +1,35 @@
-# Python: FTTA GroupMe Bots
+# Python: Consider, Incite, Exhort (CIE) - Heb. 10:24-25
 
-A Django/Heroku application that runs several useful GroupMe bots for the FTTA.
+
+# Goal:
+And let us consider one another so as to incite one another to love and good works, not abandoning our own assmebling together, as the custom with some is, but exhorting one another; and so much the more as you see the day drawing near. - Hebrews 10:24-25
+
+The goal of this Heroku Django application is to help Christians all over the
+world foster an atmosphere of considering, inciting, and exhorting one another,
+especially in the group meetings. The Bible shows us that the early believers
+met from "house to house"(Acts 5:42, 2:46), partaking of their food with exultation
+and simplicity of heart.
+
+CIE is a simple django application that runs on a heroku dyno. It hooks up to
+the GroupMe communication app to assist with the coordination, schedule, and
+other practical matters involved in a group meeting.
+
+This application has been designed with the view to aide such a fostering of mutual teaching, love,
+ and care among God's children. It by no means should be used to replace the function of the believers,
+but rather as a tool to help the Christian small group meetings.
+
+Ideas:
+* Maintain a schedule of home rotations for the small group meetings. That schedule can then
+  be referenced using the '#showschedule' hastag.
+* Runs a GroupMe bot that sends a reminder of the weekly small group gathering, also sending
+  some info about the time, location, and maybe suggestions on what to bring.
+* Send a random memory verse with the reminder
+* Head counter? People who know for sure that they are coming can assist the host with a head
+  count by responding with the '#yes' hashtag, or maybe use a groupme poll?
+
+# Description:
+
+A Django/Heroku application that runs several useful GroupMe bots
 
 This application currently has the following features:
 
@@ -17,7 +46,6 @@ This application currently has the following features:
 
 
 TODO:
-* Maintains a database of all the class readings on a per week basis. These readings can be referenced with the '#showmethereading <class>' hashtag. The bot will respond with the current weeks reading assignments.
 * Add search funtionality when choosing a song from the YP songbook. That way someone could reference a song using '#sendsong pattern' hashtag. The bot would then send the song with chords that has lyrics that match that pattern.
 
 * Update this read me with instructions on how to deploy this bot
