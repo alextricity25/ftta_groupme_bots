@@ -70,7 +70,9 @@ def pick_a_song(request):
                 songbook_name = "guitar_hymnal.pdf"
                 hymn_rt = re.search(r"#hymn ([0-9]+)", r_dict['text'])
                 if hymn_rt:
-                    page_number = int(hymn_rt.group(1))
+                    # Subtracting 1 because page numbers start at 0
+                    # according to PyPDF2.
+                    page_number = int(hymn_rt.group(1)) - 1
                 else:
                     # If page number is not recognized by the regexp above,
                     # then always return page number 1
